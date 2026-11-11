@@ -31,6 +31,7 @@ const (
 	archiveIDState = "state/archive-id"
 	baseSuffix     = ".mbstream"
 	backupInfo     = "mariadb_backup_info"
+	legacyInfo     = "xtrabackup_info"
 	backupBinary   = "/usr/bin/mariadb-backup"
 	mbstreamBinary = "/usr/bin/mbstream"
 	binlogBinary   = "/usr/bin/mariadb-binlog"
@@ -60,6 +61,13 @@ func backupArgsOf(root string, galeraNode bool) []string {
 	return args
 }
 
+func backupCommand(ctx context.Context, binary string, root string, galeraNode bool) *exec.Cmd {
+	meta := root + "/" + backupMeta
+	script := `"$@" || exit $?; [ -f "$0/` + backupInfo + `" ] || cp "$0/` + legacyInfo + `" "$0/` + backupInfo + `"`
+
+	return exec.CommandContext(ctx, "/bin/sh", append([]string{"-c", script, meta, binary}, backupArgsOf(root, galeraNode)...)...)
+}
+
 func (e Engine) isWriter(ctx context.Context) bool {
 	state, err := e.state(ctx)
 
@@ -81,7 +89,7 @@ func (a archive) Backup(ctx context.Context) error {
 			return err
 		}
 	}
-	backup := exec.CommandContext(ctx, backupBinary, backupArgsOf(string(a.root), galera(request))...)
+	backup := backupCommand(ctx, backupBinary, string(a.root), galera(request))
 
 	return a.archiver().Upload(ctx, settings, backup, a.root.Path(backupMeta+"/"+backupInfo))
 }

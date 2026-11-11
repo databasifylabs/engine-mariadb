@@ -1,6 +1,8 @@
 package mariadb
 
 import (
+	"context"
+	"os"
 	"slices"
 	"strings"
 	"testing"
@@ -22,6 +24,28 @@ func TestBackupStreamsMbstreamIntoRclone(t *testing.T) {
 	}
 	if baseSuffix != ".mbstream" {
 		t.Fatalf("suffix = %s", baseSuffix)
+	}
+}
+
+func TestBackupKeepsTheInfoFileOfOlderReleasesUnderTheNewName(t *testing.T) {
+	root := t.TempDir()
+	if err := os.MkdirAll(root+"/"+backupMeta, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	binary := root + "/fake-backup"
+	script := "#!/bin/sh\nprintf 'GTID info' > " + root + "/" + backupMeta + "/xtrabackup_info\nprintf stream\n"
+	if err := os.WriteFile(binary, []byte(script), 0o700); err != nil {
+		t.Fatal(err)
+	}
+
+	output, err := backupCommand(context.Background(), binary, root, false).Output()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	info, _ := os.ReadFile(root + "/" + backupMeta + "/" + backupInfo)
+	if string(output) != "stream" || string(info) != "GTID info" {
+		t.Fatalf("output = %q, info = %q", output, info)
 	}
 }
 
