@@ -1,0 +1,2 @@
+# apt and libapt-pkg in the base image, until the official image ships the fixed apt.
+CVE-2026-109518
