@@ -33,12 +33,12 @@ func TestRestoreReadsTheBackupGtid(t *testing.T) {
 	}
 }
 
-func TestReplayStartsAfterTheBackupGtid(t *testing.T) {
+func TestReplayStartsAfterTheBackupGtidWithoutStrictMode(t *testing.T) {
 	target, _ := time.Parse(time.RFC3339, "2026-11-09T11:30:00Z")
 
 	args := replayArgsOf("1-1-99,11-5-3", target, []string{"binlog.000001", "binlog.000002"})
 
-	if strings.Join(args, " ") != "--start-position=1-1-99,11-5-3 --stop-datetime=2026-11-09 11:30:00 binlog.000001 binlog.000002" {
+	if strings.Join(args, " ") != "--skip-gtid-strict-mode --start-position=1-1-99,11-5-3 --stop-datetime=2026-11-09 11:30:00 binlog.000001 binlog.000002" {
 		t.Fatalf("args = %v", args)
 	}
 }

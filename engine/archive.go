@@ -200,7 +200,7 @@ func (a archive) replaceData(ctx context.Context) error {
 }
 
 func replayArgsOf(start string, target time.Time, files []string) []string {
-	return append([]string{"--start-position=" + start, "--stop-datetime=" + target.UTC().Format(family.ReplayLayout)}, files...)
+	return append([]string{"--skip-gtid-strict-mode", "--start-position=" + start, "--stop-datetime=" + target.UTC().Format(family.ReplayLayout)}, files...)
 }
 
 func (a archive) replay(ctx context.Context, start string, target time.Time) error {
