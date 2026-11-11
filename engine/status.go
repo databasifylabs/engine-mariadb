@@ -44,7 +44,11 @@ func (e Engine) state(ctx context.Context) (nodeState, error) {
 	}
 	row := rows[0]
 
-	return nodeState{galera: row[0] == "1", readOnly: row[1] == "1", clusterStatus: row[2], localState: row[3], replicating: row[4] != "0"}, nil
+	return nodeState{galera: row[0] == "1", readOnly: isReadOnly(row[1]), clusterStatus: row[2], localState: row[3], replicating: row[4] != "0"}, nil
+}
+
+func isReadOnly(value string) bool {
+	return value != "0" && !strings.EqualFold(value, "OFF")
 }
 
 func (s nodeState) synced() bool {

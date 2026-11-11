@@ -109,13 +109,26 @@ func TestFailoverSetsReadOnlyOnTheOthers(t *testing.T) {
 	}
 }
 
+func TestFailoverAcceptsTheTextReadOnlyOfNewerReleases(t *testing.T) {
+	engine := savedEngine(t, galeraRequest())
+	sent := map[string][]string{}
+	engine.connect = func(host string, _ string) family.DB {
+		return recordingDB{host: host, sent: sent, textReadOnly: true}
+	}
+
+	if err := engine.Cluster().Failover(context.Background(), requests.ClusterFailover{Target: "10.0.0.3"}); err != nil {
+		t.Fatal(err)
+	}
+}
+
 type stoppedSupervisor struct{ fakeSupervisor }
 
 func (stoppedSupervisor) Active(string) bool { return false }
 
 type recordingDB struct {
-	host string
-	sent map[string][]string
+	host         string
+	sent         map[string][]string
+	textReadOnly bool
 }
 
 func (r recordingDB) Exec(_ context.Context, query string, _ ...any) error {
@@ -129,7 +142,15 @@ func (r recordingDB) Rows(context.Context, string, ...any) ([][]string, error) {
 }
 
 func (r recordingDB) Value(context.Context, string, ...any) (string, bool, error) {
-	return "0", true, nil
+	return r.readOnly(), true, nil
+}
+
+func (r recordingDB) readOnly() string {
+	if r.textReadOnly {
+		return "OFF"
+	}
+
+	return "0"
 }
 
 func TestBootstrapOnlyRunsOnTheSeed(t *testing.T) {

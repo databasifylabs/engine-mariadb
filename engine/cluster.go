@@ -148,7 +148,7 @@ func (e cluster) Failover(ctx context.Context, request requests.ClusterFailover)
 	return family.Until(ctx, switchTimeout, func() (bool, error) {
 		readOnly, _, err := target.Value(ctx, "SELECT @@read_only")
 
-		return err == nil && readOnly == "0", nil
+		return err == nil && !isReadOnly(readOnly), nil
 	})
 }
 

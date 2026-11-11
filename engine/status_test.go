@@ -86,6 +86,18 @@ func TestStatusOfAReadOnlyGaleraNode(t *testing.T) {
 	}
 }
 
+func TestStatusReadsTheTextReadOnlyOfNewerReleases(t *testing.T) {
+	if role := roleWith(t, []string{"1", "ON", "Primary", "Synced", "0"}); role != enums.NodeRoleReplica {
+		t.Fatalf("read_only ON role = %s", role)
+	}
+	if role := roleWith(t, []string{"1", "NO_LOCK", "Primary", "Synced", "0"}); role != enums.NodeRoleReplica {
+		t.Fatalf("read_only NO_LOCK role = %s", role)
+	}
+	if role := roleWith(t, []string{"1", "OFF", "Primary", "Synced", "0"}); role != enums.NodeRolePrimary {
+		t.Fatalf("read_only OFF role = %s", role)
+	}
+}
+
 func TestStatusOutsideGalera(t *testing.T) {
 	if role := roleWith(t, []string{"0", "0", "", "", "0"}); role != enums.NodeRolePrimary {
 		t.Fatalf("standalone role = %s", role)
