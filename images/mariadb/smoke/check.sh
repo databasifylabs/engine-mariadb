@@ -14,5 +14,5 @@ test -f /usr/lib/galera/libgalera_smm.so
 rclone version | sed -n 1p
 socat -V | sed -n 2p
 zstd --version
-echo "mariadb $DATABASIFY_RELEASE answered through the wrapper"
+echo "mariadb $DATABASIFY_RELEASE runs under the databasify supervisor"
 [ "$(id -u mysql)" = 64999 ] && [ "$(id -g mysql)" = 64999 ]
