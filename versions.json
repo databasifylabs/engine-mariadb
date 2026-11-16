@@ -3,8 +3,8 @@
   "sdk": "0.2.2",
   "go": {
     "image": "golang",
-    "tag": "1.27.3-trixie",
-    "digest": "sha256:af1bfc2614ebb1dbd31af514b78740fd678850e76498762b425ecee4c5c6ea80"
+    "tag": "1.27.4-trixie",
+    "digest": "sha256:f18c3d73a184fb0582828510722e723b63a93f7188d11dd223d9be6f6880e65d"
   },
   "images": {
     "mariadb-12.3": {
@@ -14,7 +14,7 @@
       "base": {
         "image": "mariadb",
         "tag": "12.3.3",
-        "digest": "sha256:d46e102fa8b9b72bfcdeb56f9dd538742092119dc8b11f31fe662605cd234cd9"
+        "digest": "sha256:4ebbcf100a3ba320766dfa0e1af008df12261301db6ef72798c7650f70794aed"
       },
       "packages": {
         "jq": "1.7.1-3ubuntu0.24.04.2",
@@ -34,7 +34,7 @@
       "base": {
         "image": "mariadb",
         "tag": "11.8.9",
-        "digest": "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd"
+        "digest": "sha256:d36f18d65a0459510b8b0f643b226a6d299e3206486e2b64ff20754a6d291707"
       },
       "packages": {
         "jq": "1.7.1-3ubuntu0.24.04.2",
@@ -54,7 +54,7 @@
       "base": {
         "image": "mariadb",
         "tag": "11.4.13",
-        "digest": "sha256:d1891ede5a559f1086f55053bb8cc1569b0298338c4d72d71725a7f74f6ba620"
+        "digest": "sha256:5e73baf8179b29f115101bb102763a47a017361f3e9792daccba6646c3ab1532"
       },
       "packages": {
         "jq": "1.7.1-3ubuntu0.24.04.2",
@@ -74,7 +74,7 @@
       "base": {
         "image": "mariadb",
         "tag": "10.11.19",
-        "digest": "sha256:d769e37960821dfdcf096954f6e7ac89f747e116c1bba98e48edd265dfc7deae"
+        "digest": "sha256:7d829180b5b2a9ba74f6242876ab401a0d7dd338a807e522ef92bc9698760f20"
       },
       "packages": {
         "jq": "1.6-2.1ubuntu3.2",
