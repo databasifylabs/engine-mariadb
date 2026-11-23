@@ -14,7 +14,7 @@
       "base": {
         "image": "mariadb",
         "tag": "12.3.3",
-        "digest": "sha256:4ebbcf100a3ba320766dfa0e1af008df12261301db6ef72798c7650f70794aed"
+        "digest": "sha256:4aaf88b3106382c8c18e49f0cec60267be618fc22f858c4503afb2a2555afed3"
       },
       "packages": {
         "jq": "1.7.1-3ubuntu0.24.04.2",
@@ -34,7 +34,7 @@
       "base": {
         "image": "mariadb",
         "tag": "11.8.9",
-        "digest": "sha256:d36f18d65a0459510b8b0f643b226a6d299e3206486e2b64ff20754a6d291707"
+        "digest": "sha256:e1d5495f445654134f226f55a41ce0da227116f6f27f283101f405c794d841fc"
       },
       "packages": {
         "jq": "1.7.1-3ubuntu0.24.04.2",
@@ -54,7 +54,7 @@
       "base": {
         "image": "mariadb",
         "tag": "11.4.13",
-        "digest": "sha256:5e73baf8179b29f115101bb102763a47a017361f3e9792daccba6646c3ab1532"
+        "digest": "sha256:a8992b5e5404d11e03c54a31d0c1bdea3fd116d283aa6d1a627551f29045309b"
       },
       "packages": {
         "jq": "1.7.1-3ubuntu0.24.04.2",
@@ -74,7 +74,7 @@
       "base": {
         "image": "mariadb",
         "tag": "10.11.19",
-        "digest": "sha256:7d829180b5b2a9ba74f6242876ab401a0d7dd338a807e522ef92bc9698760f20"
+        "digest": "sha256:e5fe75b2b9de0eb9f6f9a4d9c97272fb3a7480e389ccd487a786bab2a12cc0d7"
       },
       "packages": {
         "jq": "1.6-2.1ubuntu3.2",
